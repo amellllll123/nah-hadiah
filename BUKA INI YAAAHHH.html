@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Surprise</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Sembunyikan gambar secara default */
+        }
+        .next-button {
+            position: absolute;
+            top: 90%;
+            transform: translateY(-50%);
+            padding: 15px 40px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .next-button:hover {
+            background-color: #cc0000;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none; /* Sembunyikan modal secara default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Button Styles */
+        .modal-button {
+            padding: 10px 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s; /* Animasi untuk perubahan ukuran */
+        }
+        /* Button 2 Styles */
+        .modal-button2 {
+            padding: 10px 20px;
+            background-color: #21005e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .modal-button:hover {
+            background-color: #cc0000;
+        }
+        .larger {
+            transform: scale(1.1); /* Membuat tombol sedikit lebih besar */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="image1" src="1.png" alt="Surprise" style="display: block;"> <!-- Tampilkan gambar pertama -->
+        <img id="image2" src="2.png" alt="Surprise2"> <!-- Gambar kedua disembunyikan -->
+        <button class="next-button" id="nextButton" onclick="nextPage()">Next</button>
+    </div>
+
+    <!-- Modal Pertama -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Kamu KGSA! Aku mau hadiah valentine jugak:(</p>
+            <button id="modalButton" class="modal-button" onclick="showSecondModal()">Aku ada hadiah kok🎁</button>
+            <button class="modal-button2" onclick="makeButtonLarger('modalButton')">Yah gak ada:(</button>
+        </div>
+    </div>
+
+    <!-- Modal Kedua -->
+    <div id="secondModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSecondModal()">&times;</span>
+            <p>Beneeer?</p>
+            <button id="modalButton2" class="modal-button" onclick="finalResponse()">Iya ada sayaaaangg❤️</button>
+            <button class="modal-button2" onclick="makeButtonLarger('modalButton2')">GK ada 😜</button>
+        </div>
+    </div>
+
+    <script>
+        let currentImage = 1; // Menyimpan gambar yang sedang ditampilkan
+        let clickCount1 = 0; // Menghitung jumlah klik pada tombol "Yah gak ada:("
+        let clickCount2 = 0; // Menghitung jumlah klik pada tombol "GK ada 😜"
+
+        function nextPage() {
+            if (currentImage === 1) {
+                document.getElementById('image1').style.display = 'none'; // Sembunyikan gambar pertama
+                document.getElementById('image2').style.display = 'block'; // Tampilkan gambar kedua
+                currentImage = 2; // Update gambar yang sedang ditampilkan
+            } else {
+                // Tampilkan modal pertama
+                document.getElementById('myModal').style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        function showSecondModal() {
+            closeModal(); // Tutup modal pertama
+            document.getElementById('secondModal').style.display = 'block'; // Tampilkan modal kedua
+        }
+
+        function closeSecondModal() {
+            document.getElementById('secondModal').style.display = 'none'; // Tutup modal kedua
+        }
+
+        function finalResponse() {
+            alert("Terima kasih sayang!❤️❤️❤️ Aku tunggu hadiah nya o(〃＾▽＾〃)o"); // Tampilkan alert 
+            alert("Semoga dengan hadirnya aku di sisimu, beban km bisa lebih ringan. Aku bukan ingin ikut standar tiktok /apapun. Aku cm ingin merayakan setiap tanggal special bersamamu, meskipun setiap hari bersamamu adalah hal yang paling special dan ku syukuri. Tapi dengan ada nya tanggal2 special itu, kita di berikan kesempatan untuk membahagiakan pasangan kita. Kamu mau gk rayain berbagai tanggal special kedepannya lagi?🥺"); // Tampilkan alert akhir
+            closeSecondModal(); // Tutup modal kedua
+            window.close(); // Tutup jendela/tab (hanya berfungsi jika dibuka oleh skrip)
+        }
+
+        function makeButtonLarger(buttonId) {
+            const modalButton = document.getElementById(buttonId);
+            let clickCount = buttonId === 'modalButton' ? clickCount1 : clickCount2; // Tentukan clickCount berdasarkan tombol yang diklik
+
+            clickCount++; // Tambah jumlah klik
+
+            // Hitung skala berdasarkan jumlah klik
+            if (clickCount <= 5) {
+                const scale = 1 + (clickCount * 0.1); // Setiap klik menambah 10%
+                modalButton.style.transform = `scale(${scale})`; // Ubah ukuran tombol
+            }
+
+            // Simpan kembali nilai clickCount
+            if (buttonId === 'modalButton') {
+                clickCount1 = clickCount;
+            } else {
+                clickCount2 = clickCount;
+            }
+        }
+
+        // Tutup modal jika pengguna mengklik di luar modal
+        window.onclick = function(event) {
+            const modal1 = document.getElementById('myModal');
+            const modal2 = document.getElementById('secondModal');
+            if (event.target === modal1) {
+                closeModal();
+            } else if (event.target === modal2) {
+                closeSecondModal();
+            }
+        }
+    </script>
+</body>
+</html>
